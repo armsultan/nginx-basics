@@ -33,6 +33,32 @@ Lets look at the Live Activity Monitoring JSON Feed​ in detail. For the demo p
 ## Going Over demo using Postman:
 1. Open `Postman` tool found on the desktop
 
+   ![Open Postman app](media/Postman1_2020-08-26.png)
+
+2. Within the `Live Activity Monitoring` collection, open `NGINX Info` request and then click on `Send` button. <br>`/api/api-version/nginx/` is used to retrieve basic version, uptime, and identification information​.
+   
+    ![NGINX Info request](media/Postman2_2020-08-26.png)
+
+3. Next open `NGINX Connections` request and then click on `Send` button. <br>`/api/api-version/connections/` is used to retrieve total active and idle connections​.
+   
+    ![NGINX Info request](media/Postman3_2020-08-26.png)
+
+4. Open `NGINX Server Zones` request and then click on `Send` button. <br>`/api/api-version/http/server_zones/` is used to retrieve request and response counts for each HTTP status zone.
+
+    ![NGINX Info request](media/Postman4_2020-08-26.png)
+
+5. Open `NGINX Cache` request and then click on `Send` button. <br>`/api/api-version/http/caches/` is used to retrieve instrumentation for each named cache zone.
+
+    ![NGINX Info request](media/Postman5_2020-08-26.png)
+
+6. Open `NGINX Upstreams` request and then click on `Send` button. <br>`/api/api-version/stream/upstreams/` is used to retrieve request and response counts, response time, health‑check status, and uptime statistics per server in each TCP/UDP upstream group.
+
+    ![NGINX Info request](media/Postman6_2020-08-26.png)
+
+7. Open `NGINX SSL` request and then click on `Send` button. <br>`/api/api-version/ssl/` is used to retrieve SSL/TLS statistics.
+   
+    ![NGINX Info request](media/Postman7_2020-08-26.png)
+
 ## Going Over demo using Command Line:
 1. In the `SSH` folder found on the desktop, open any Linux SSH session found on
    here, e.g. `NGINX-PLUS-1`
