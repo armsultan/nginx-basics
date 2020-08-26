@@ -129,7 +129,7 @@
 			"response": []
 		},
 		{
-			"name": "NGINX_SSL",
+			"name": "NGINX SSL",
 			"request": {
 				"method": "GET",
 				"header": [],

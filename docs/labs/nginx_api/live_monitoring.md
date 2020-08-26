@@ -26,11 +26,14 @@ the current statistics. You can request complete statistics at
 `/api/[api-version]/`, where `[api-version]` is the version number of the NGINX
 Plus API.
 
-Lets look at the Live Activity Monitoring JSON Feed​ in detail. Drill down to
-obtain subsets of the data or single data points, at specific API endpoints, and
-Parse JSON data using `jq` and `curl` from command line:
+Lets look at the Live Activity Monitoring JSON Feed​ in detail. For the demo purpose we can take two approach:
+- Make API calls using Postman tool.
+- Make API calls using `curl` and parse JSON data using `jq` from command line.
 
+## Going Over demo using Postman:
+1. Open `Postman` tool found on the desktop
 
+## Going Over demo using Command Line:
 1. In the `SSH` folder found on the desktop, open any Linux SSH session found on
    here, e.g. `NGINX-PLUS-1`
 
