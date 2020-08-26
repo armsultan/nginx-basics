@@ -36,7 +36,7 @@ By the end of the lab you will be able to:
 1. In the `WORKSPACE` folder found on the desktop, open `NGINX-PLUS-1` in Visual
    Studio Code (VSCode)
 
-  ![Select workspace](media/2020-06-29_15-55.png)
+    ![Select workspace](media/2020-06-29_15-55.png)
 
 2. In the VSCode, open a a **terminal window**, using `View > Terminal menu`
    command. You will now be able to both run NGINX commands and edit NGINX Plus
@@ -89,21 +89,30 @@ By the end of the lab you will be able to:
    There is a bookmark in the Chrome Web Browser. Navigate to `HTTP Upstreams`,
    and note that the `dynamic` is empty:
 
-  ![nginx plus dashboard showing the empty dynamic upstream](media/2020-06-23_16-26.png)
+    ![nginx plus dashboard showing the empty dynamic upstream](media/2020-06-23_16-26.png)
 
-6. In the Terminal window, we can also confirm the empty state of our upstream,
-   `dynamic`, using our a `curl` command to retrieve this information from the
-   NGINX API
+6. Open `Postman` tool found on the desktop. For this demo we would be making use of the `Dynamic Configuration` collection.
+   
+7. Open `Check dynamic servers` request and execute the call by clicking on `Send` button. We can confirm from the empty state of our upstream, `dynamic`, from the response that we receive from the NGINX API.
+   
+    ![Check dynamic servers](media/dc1_2020-08-26.png)   
+    
+    We can perform the same operation using a `curl` command in command line as shown below.    
+    
+    ```bash
+    $> curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq
 
-  ```bash
-  $> curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq
+    []
+    ```
 
-  []
-  ```
+8. Lets now add a two servers, `web1` (`10.1.1.5:80`) and `web2` (`10.1.1.6:80`) to the `dynamic` upstream group using the API.
 
-7. Lets now add a two servers, `web1` (`10.1.1.5:80`) and `web2` (`10.1.1.6:80`)
-   to the `dynamic` upstream group using the API
+    Open `Add web1 to dynamic` and `Add web2 to dynamic` requests and run them as shown below.
 
+    ![Add web1 postman](media/dc2_2020-08-26.png)
+    ![Add web2 postman](media/dc3_2020-08-26.png)
+
+    Alternatively, you can also run `curl` command in command line as shown below.
     ```bash
     # Add web1 - 10.1.1.5:80
     $> curl -s -X \
@@ -142,9 +151,13 @@ By the end of the lab you will be able to:
 
     ![add web2](media/2020-06-29_21-54.png)
 
-8. Lets now add `web3` (`10.1.1.7:80`), **marked as down**, to the `dynamic`
-   upstream group using the API
+9.  Lets now add `web3` (`10.1.1.7:80`), **marked as down**, to the `dynamic` upstream group using the API
 
+    Using `Postman` tool:
+
+    ![Add web3 postman](media/dc4_2020-08-26.png)
+
+    Using `curl` command:
       ```bash
     # Add web3 - 10.1.1.7:80
     $> curl -s -X \
@@ -165,9 +178,13 @@ By the end of the lab you will be able to:
 
     ![add web3](media/2020-06-29_21-56.png)
 
-9. Once again list out the servers in our upstream, `dynamic`, and view the
-   changes made
+10. Once again list out the servers in our upstream, `dynamic`, and view the changes made
 
+    Using `Postman` tool:
+
+    ![list servers postman](media/dc5_2020-08-26.png)
+
+    Using `curl` command:
     ```json
     curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq
     [
@@ -210,7 +227,7 @@ By the end of the lab you will be able to:
     ]
     ```
 
-8. We can also confirm that the state file has been updated:
+11. We can also confirm that the state file has been updated:
 
     ```bash
     $> cat /var/lib/nginx/state/servers.conf
@@ -222,8 +239,13 @@ By the end of the lab you will be able to:
     server 10.1.1.7:80 slow_start=10s backup down;
     ```
 
-9. It is possible to also remove a server from the upstream group:
+12. It is possible to also remove a server from the upstream group:
 
+    Using `Postman` tool:
+
+    ![remove server postman](media/dc6_2020-08-26.png)
+
+    Using `curl` command:
     ```bash
     $> curl -X DELETE -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers/0 | jq
     [
@@ -256,10 +278,15 @@ By the end of the lab you will be able to:
 
     ![remove server](media/2020-06-29_21-58.png)
 
-10. To modify our `down` server back to rotation and accept live traffic, we
-    need to change the server parameter from `down: true` to `down: false`. We
-    first must find the server ID:
+13. To modify our `down` server back to rotation and accept live traffic, we need to change the server parameter from `down: true` to `down: false`. We first must find the server ID:
 
+    Using `Postman` tool:
+
+    Run the  `Check dynamic servers` request to get the list of servers. From the response body note down the `id` value for the block that has the server parameter `down: true` 
+
+    ![List server postman](media/dc7_2020-08-26.png)
+
+    Using `curl` command:
     ```bash
     # Find the ID of the down server i.e '"down": true', i.e. live
     $> curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq '.[]  | select(.down==true)'
@@ -279,9 +306,13 @@ By the end of the lab you will be able to:
 
     ```
 
-11. Now that we have identified the server id, (e.g. `"id: 2"`) we can modify
-    the `down` parameter:
+14. Now that we have identified the server id, (e.g. `"id: 2"`) we can modify the `down` parameter:
 
+    Using `Postman` tool:
+
+    ![List server postman](media/dc8_2020-08-26.png)
+
+    Using `curl` command:
     ```bash
     # Set server to '"down": false', i.e. live
     $> curl -X PATCH -d '{ "down": false }' -s 'http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers/2'
@@ -289,7 +320,7 @@ By the end of the lab you will be able to:
     {"id":2,"server":"10.1.1.7:80","weight":1,"max_conns":0,"max_fails":1,"fail_timeout":"10s","slow_start":"10s","route":"","backup":true,"down":false}
     ```
 
-12. Once again, list out servers in our upstream, `dynamic`
+15. Once again, list out servers in our upstream, `dynamic`
 
     ```bash
     $> curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq

@@ -159,7 +159,7 @@
 			"response": []
 		},
 		{
-			"name": "Update web3  to modify down parameter",
+			"name": "Update web3",
 			"request": {
 				"method": "PATCH",
 				"header": [],
