@@ -18,19 +18,20 @@ By the end of the lab you will be able to:
 
  * Use [demo.nginx.com](https://demo.nginx.com) for demo purposes
  * Use the NGINX Plus API to read live monitoring metrics on NGINX Plus
+ * Interact with the NGINX Plus API using both [Postman](https://www.postman.com) and [`cURL`](https://curl.haxx.se)
 
-## Exercise 1: Explore the Live Activity Monitoring JSON Feed​ from demo.nginx.com
+## Exercise 1: Explore the Live Activity Monitoring JSON Feed​ from demo.nginx.com using Postman:
 
 When you access the API, NGINX Plus returns a JSON‑formatted document containing
 the current statistics. You can request complete statistics at
 `/api/[api-version]/`, where `[api-version]` is the version number of the NGINX
 Plus API.
 
-Lets look at the Live Activity Monitoring JSON Feed​ in detail. For the demo purpose we can take two approach:
-- Make API calls using Postman tool.
-- Make API calls using `curl` and parse JSON data using `jq` from command line.
+Lets look at the Live Activity Monitoring JSON Feed​ in detail.
 
-## Going Over demo using Postman:
+In this section, we will use `Postman` to interact with the NGINX API. In the Optional section below, we can reproduce the same steps using `curl`
+
+
 1. Open `Postman` tool found on the desktop
 
    ![Open Postman app](media/Postman1_2020-08-26.png)
@@ -59,7 +60,10 @@ Lets look at the Live Activity Monitoring JSON Feed​ in detail. For the demo p
    
     ![NGINX Info request](media/Postman7_2020-08-26.png)
 
-## Going Over demo using Command Line:
+### Optional: Explore the Live Activity Monitoring JSON Feed​ from demo.nginx.com using cURL:
+
+In this section, we will use `curl` to interact with the NGINX API. 
+
 1. In the `SSH` folder found on the desktop, open any Linux SSH session found on
    here, e.g. `NGINX-PLUS-1`
 
