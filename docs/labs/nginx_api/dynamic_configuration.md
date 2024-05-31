@@ -126,8 +126,6 @@ In this section, we will use `Postman` to interact with the NGINX API. In the Op
     ```bash
     $> cat /var/lib/nginx/state/servers.conf
 
-    $> cat /var/lib/nginx/state/servers.conf
-
     server 10.1.1.5:80;
     server 10.1.1.6:80;
     server 10.1.1.7:80 slow_start=10s backup down;
@@ -245,7 +243,7 @@ In this section, we will use `curl` to interact with the NGINX API.
    NGINX API
 
   ```bash
-  $> curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq
+  $> curl -s http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers | jq
 
   []
   ```
@@ -256,7 +254,7 @@ In this section, we will use `curl` to interact with the NGINX API.
     ```bash
     # Add web1 - 10.1.1.5:80
     $> curl -s -X \
-    POST http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers \
+    POST http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers \
     -H 'Content-Type: text/json; charset=utf-8' \
     -d '{
       "server": "10.1.1.5:80",
@@ -272,7 +270,7 @@ In this section, we will use `curl` to interact with the NGINX API.
 
     # Add web2 - 10.1.1.6:80
     $> curl -s -X \
-    POST http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers \
+    POST http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers \
     -H 'Content-Type: text/json; charset=utf-8' \
     -d '{
       "server": "10.1.1.6:80",
@@ -297,7 +295,7 @@ In this section, we will use `curl` to interact with the NGINX API.
       ```bash
     # Add web3 - 10.1.1.7:80
     $> curl -s -X \
-    POST http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers \
+    POST http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers \
     -H 'Content-Type: text/json; charset=utf-8' \
     -d '{
       "server": "10.1.1.7:80",
@@ -318,7 +316,7 @@ In this section, we will use `curl` to interact with the NGINX API.
    changes made
 
     ```json
-    curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq
+    curl -s http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers | jq
     [
       {
         "id": 0,
@@ -364,8 +362,6 @@ In this section, we will use `curl` to interact with the NGINX API.
     ```bash
     $> cat /var/lib/nginx/state/servers.conf
 
-    $> cat /var/lib/nginx/state/servers.conf
-
     server 10.1.1.5:80;
     server 10.1.1.6:80;
     server 10.1.1.7:80 slow_start=10s backup down;
@@ -374,7 +370,7 @@ In this section, we will use `curl` to interact with the NGINX API.
 9. It is possible to also remove a server from the upstream group:
 
     ```bash
-    $> curl -X DELETE -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers/0 | jq
+    $> curl -X DELETE -s http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers/0 | jq
     [
       {
         "id": 1,
@@ -411,7 +407,7 @@ In this section, we will use `curl` to interact with the NGINX API.
 
     ```bash
     # Find the ID of the down server i.e '"down": true', i.e. live
-    $> curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq '.[]  | select(.down==true)'
+    $> curl -s http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers | jq '.[]  | select(.down==true)'
 
     {
       "id": 2,
@@ -433,7 +429,7 @@ In this section, we will use `curl` to interact with the NGINX API.
 
     ```bash
     # Set server to '"down": false', i.e. live
-    $> curl -X PATCH -d '{ "down": false }' -s 'http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers/2'
+    $> curl -X PATCH -d '{ "down": false }' -s 'http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers/2'
 
     {"id":2,"server":"10.1.1.7:80","weight":1,"max_conns":0,"max_fails":1,"fail_timeout":"10s","slow_start":"10s","route":"","backup":true,"down":false}
     ```
@@ -441,7 +437,7 @@ In this section, we will use `curl` to interact with the NGINX API.
 12. Once again, list out servers in our upstream, `dynamic`
 
     ```bash
-    $> curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq
+    $> curl -s http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers | jq
     ```
 
   ![server list](media/2020-06-29_22-02.png)
@@ -463,9 +459,9 @@ In this section, we will use `curl` to interact with the NGINX API.
     **Note:** After a NGINX reload, the server `id` is reset to start at `0`:
 
     ```bash
-    # Lastly, list out servers in our upstream, `dynamic` 
-    $> curl -s http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers | jq
-    
+    # Lastly, list out servers in our upstream, `dynamic`
+    $> curl -s http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers | jq
+
       {
         "id": 0,
         "server": "10.1.1.6:80",
