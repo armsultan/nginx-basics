@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers",
+					"raw": "http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers",
 					"protocol": "http",
 					"host": [
 						"nginx-plus-1"
@@ -19,7 +19,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"6",
+						"8",
 						"http",
 						"upstreams",
 						"dynamic",
@@ -45,7 +45,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers",
+					"raw": "http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers",
 					"protocol": "http",
 					"host": [
 						"nginx-plus-1"
@@ -53,7 +53,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"6",
+						"8",
 						"http",
 						"upstreams",
 						"dynamic",
@@ -79,7 +79,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers",
+					"raw": "http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers",
 					"protocol": "http",
 					"host": [
 						"nginx-plus-1"
@@ -87,7 +87,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"6",
+						"8",
 						"http",
 						"upstreams",
 						"dynamic",
@@ -113,7 +113,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers",
+					"raw": "http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers",
 					"protocol": "http",
 					"host": [
 						"nginx-plus-1"
@@ -121,7 +121,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"6",
+						"8",
 						"http",
 						"upstreams",
 						"dynamic",
@@ -138,7 +138,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers/0",
+					"raw": "http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers/0",
 					"protocol": "http",
 					"host": [
 						"nginx-plus-1"
@@ -146,7 +146,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"6",
+						"8",
 						"http",
 						"upstreams",
 						"dynamic",
@@ -173,7 +173,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://nginx-plus-1:8080/api/6/http/upstreams/dynamic/servers/2",
+					"raw": "http://nginx-plus-1:8080/api/8/http/upstreams/dynamic/servers/2",
 					"protocol": "http",
 					"host": [
 						"nginx-plus-1"
@@ -181,7 +181,7 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"6",
+						"8",
 						"http",
 						"upstreams",
 						"dynamic",

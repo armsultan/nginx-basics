@@ -136,8 +136,7 @@ By the end of the lab you will be able to:
     ```
 
 7. Request `smile.png` again, using a web browser or `curl`. We will see that
-   the **subsequent requests** are served from the origin server as it is not
-   cached on NGINX yet
+   the **subsequent requests** are served from the proxy cache as the content got cached on NGINX with the first call.
 
     ```bash
     $> curl -I http://www.example.com/smile.png
