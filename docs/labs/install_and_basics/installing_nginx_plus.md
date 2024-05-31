@@ -64,11 +64,11 @@ By the end of the lab you will be able to:
 
    # Run installation commands
    $> mkdir -p /etc/ssl/nginx 
-   $> cp nginx-repo.* /etc/ssl/nginx 
-   $> wget http://nginx.org/keys/nginx_signing.key && sudo apt-key add nginx_signing.key 
-   $> apt-get install apt-transport-https lsb-release ca-certificates 
-   $> printf "deb https://plus-pkgs.nginx.com/ubuntu `lsb_release -cs` nginx-plus\n" | sudo tee /etc/apt/sources.list.d/nginx-plus.list 
-   $> wget -P /etc/apt/apt.conf.d https://cs.nginx.com/static/files/90nginx 
+   $> cp nginx-repo.* /etc/ssl/nginx
+   $> apt-get -y install apt-transport-https lsb-release ca-certificates wget gnupg2 ubuntu-keyring 
+   $> wget -qO - https://cs.nginx.com/static/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null 
+   $> printf "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://pkgs.nginx.com/plus/ubuntu `lsb_release -cs` nginx-plus\n" | sudo tee /etc/apt/sources.list.d/nginx-plus.list
+   $> wget -P /etc/apt/apt.conf.d https://cs.nginx.com/static/files/90pkgs-nginx
    $> apt-get update 
    $> apt-get -y install nginx-plus 
    ```
@@ -77,46 +77,41 @@ By the end of the lab you will be able to:
 
    ```bash
    $> nginx -v 
-   nginx version: nginx/1.19.0 (nginx-plus-r22)
+   nginx version: nginx/1.23.4 (nginx-plus-r29-p1)
    ```
 
 5. Install the NGINX Plus GeoIP2 Dynamic Module
 
       ```bash
-     $> apt-get -y install nginx-plus-module-geoip2 
+      $> apt-get -y install nginx-plus-module-geoip2 
+      
+      Reading package lists... Done
+      Building dependency tree       
+      Reading state information... Done
 
-      Reading package lists... Done 
-      Building dependency tree        
-      Reading state information... Done 
+      The following additional packages will be installed:
+      libmaxminddb0
+      Suggested packages:
+      mmdb-bin
 
-      The following additional packages will be installed: 
+      The following NEW packages will be installed:
+      libmaxminddb0 nginx-plus-module-geoip2
 
-      libmaxminddb0 
-
-      Suggested packages: 
-
-      mmdb-bin 
-
-      The following NEW packages will be installed: 
-
-      libmaxminddb0 nginx-plus-module-geoip2 
-
-      0 upgraded, 2 newly installed, 0 to remove and 9 not upgraded. 
-      Need to get 37.6 kB of archives. 
-      After this operation, 138 kB of additional disk space will be used. 
-      Do you want to continue? [Y/n] Y 
-      Get:1 http://us-west-2.ec2.archive.ubuntu.com/ubuntu bionic/universe amd64 libmaxminddb0 amd64 1.3.1-1 [25.6 kB] 
-      Get:2 https://plus-pkgs.nginx.com/ubuntu bionic/nginx-plus amd64 nginx-plus-module-geoip2 amd64 22+3.3-1~bionic [12.0 kB] 
-      Fetched 37.6 kB in 1s (54.7 kB/s)                      
-      Selecting previously unselected package libmaxminddb0:amd64. 
-      (Reading database ... 56711 files and directories currently installed.) 
-      Preparing to unpack .../libmaxminddb0_1.3.1-1_amd64.deb ... 
-      Unpacking libmaxminddb0:amd64 (1.3.1-1) ... 
-      Selecting previously unselected package nginx-plus-module-geoip2. 
-      Preparing to unpack .../nginx-plus-module-geoip2_22+3.3-1~bionic_amd64.deb ... 
-      Unpacking nginx-plus-module-geoip2 (22+3.3-1~bionic) ... 
-      Setting up libmaxminddb0:amd64 (1.3.1-1) ... 
-      Setting up nginx-plus-module-geoip2 (22+3.3-1~bionic) 
+      0 upgraded, 2 newly installed, 0 to remove and 230 not upgraded.
+      Need to get 37.7 kB of archives.
+      After this operation, 139 kB of additional disk space will be used.
+      Get:1 http://us-west-2.ec2.archive.ubuntu.com/ubuntu bionic/universe amd64 libmaxminddb0 amd64 1.3.1-1 [25.6 kB]
+      Get:2 https://pkgs.nginx.com/plus/ubuntu bionic/nginx-plus amd64 nginx-plus-module-geoip2 amd64 29+3.4-1~bionic [12.1 kB]
+      Fetched 37.7 kB in 1s (61.3 kB/s)              
+      Selecting previously unselected package libmaxminddb0:amd64.
+      (Reading database ... 56728 files and directories currently installed.)
+      Preparing to unpack .../libmaxminddb0_1.3.1-1_amd64.deb ...
+      Unpacking libmaxminddb0:amd64 (1.3.1-1) ...
+      Selecting previously unselected package nginx-plus-module-geoip2.
+      Preparing to unpack .../nginx-plus-module-geoip2_29+3.4-1~bionic_amd64.deb ...
+      Unpacking nginx-plus-module-geoip2 (29+3.4-1~bionic) ...
+      Setting up libmaxminddb0:amd64 (1.3.1-1) ...
+      Setting up nginx-plus-module-geoip2 (29+3.4-1~bionic) ...
       ```
    Notice in the end of the output the instructions to enable the module via the NGINX config.
    We will do this later:
@@ -131,6 +126,8 @@ By the end of the lab you will be able to:
 
       Please refer to the module documentation for further details: 
       https://github.com/leev/ngx_http_geoip2_module 
+      
+      ----------------------------------------------------------------------
       Processing triggers for man-db (2.8.3-2ubuntu0.1) ... 
       Processing triggers for libc-bin (2.27-3ubuntu1) ... 
       ```
@@ -157,7 +154,6 @@ By the end of the lab you will be able to:
    page:
 
    ![NGINX default page](media/2020-06-26_12-33.png)
-
 
 ## Exercise 2: NGINX Plus command line basics
 

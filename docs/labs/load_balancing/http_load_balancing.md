@@ -74,9 +74,11 @@ By the end of the lab you will be able to:
       # Enables logging of ngx_http_rewrite_module module directives 
       # processing results into the error_log at the notice level
       rewrite_log on;
-      
-      # 301 MOVED PERMANENTLY
-      location = /old-url { return 301 new-url; } 
+
+      # 1. return - Most simple and fastest (no regex processing) option and should
+      #             be used where possible
+
+      location = /old-url { return 301 new-url; } # 301 MOVED PERMANENTLY
 
       # etc..
 
@@ -117,14 +119,17 @@ By the end of the lab you will be able to:
    # nginx-hello servers 
    upstream nginx_hello {
 
-      least_time header; #header|last_byte 
+      # Load Balancing Algorithm
+      # Default - Round Robin Load Balancing
+      # Least Time - NGINX Plus only
+      least_time header; #header|last_byte . NGINX Plus only
 
       zone nginx_hello 64k;
       server 10.1.1.5:80;
       server 10.1.1.6:80;
       server 10.1.1.7:80;
 
-      # keep alive connections
+      # Including keep alive connections are bonus points
       keepalive 32;
 
    }
